@@ -3,14 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5ca26f41-1cfe-438f-ae7a-49b692f44ac8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/model/Encomenda.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/model/Encomenda.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/model/EventoRastreio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/model/EventoRastreio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/service/SistemaLogistica.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjetoLogistica/com/logistica/service/SistemaLogistica.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/logistica/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/logistica/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/logistica/model/Encomenda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/logistica/model/Encomenda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/logistica/model/EventoRastreio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/logistica/model/EventoRastreio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/logistica/model/Endereco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/logistica/model/Endereco.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/logistica/service/SistemaLogistica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/logistica/service/SistemaLogistica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/logistica/service/Transportadora.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/logistica/service/Transportadora.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,14 +76,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/logistica/service/SistemaLogistica.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/logistica/model/Entregador.java</url>
           <line>18</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/logistica/service/Transportadora.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

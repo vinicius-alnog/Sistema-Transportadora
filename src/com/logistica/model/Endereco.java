@@ -3,15 +3,13 @@ package com.logistica.model;
 public class Endereco {
 
     private String rua;
-    private Integer numero;
     private String cidade;
-    private Integer cep;
+    private String cep;
 
     public Endereco() {}
 
-    public Endereco(String rua, Integer numero, String cidade, Integer cep) {
+    public Endereco(String rua, String cidade, String cep) {
         this.rua = rua;
-        this.numero = numero;
         this.cidade = cidade;
         this.cep = cep;
     }
@@ -22,23 +20,17 @@ public class Endereco {
     public void setRua(String rua) {
         this.rua = rua;
     }
-    public Integer getNumero() {
-        return numero;
-    }
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
     public String getCidade() { return cidade; }
     public void setCidade(String cidade) { this.cidade = cidade; }
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
     @Override
     public String toString() {
-        return "Rua " + rua + ", " + numero + " - " + cidade + " (" + cep + ")";
+        return "Rua " + rua + " - " + cidade + " (" + cep + ")";
     }
 }

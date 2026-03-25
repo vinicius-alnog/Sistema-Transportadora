@@ -32,6 +32,14 @@ public class Transportadora {
         }
         throw new EntregadorNaoEncontradoException("Encomenda não encontrada: " + codigo);
     }
+    public Entregador buscarEntregadorPorNome(String nome) {
+        for (Entregador e : entregadores) {
+            if (e.getNome().equalsIgnoreCase(nome)) {
+                return e;
+            }
+        }
+        throw new EntregadorNaoEncontradoException("Entregador não encontrado: " + nome);
+    }
     public void atribuirEntregador(String codigoEncomenda, String nomeEntregador) {
         Encomenda encomenda = null;
         for (Encomenda e : encomendas) {

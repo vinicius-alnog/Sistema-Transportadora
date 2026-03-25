@@ -13,15 +13,18 @@ public class Encomenda {
     private String remetente;
     private String destinatario;
     private double peso;
+    private Endereco enderecoOrigem;
+    private Endereco enderecoDestinatario;
     private List<EventoRastreio> eventos;
 
     // CONSTRUTORES
     public Encomenda() { }
-    public Encomenda(String remetente, String destinatario, double peso) {
+    public Encomenda(String remetente, String destinatario, double peso, Endereco enderecoDestinatario) {
         this.codigo = "ENC-" + (++contador);
         this.remetente = remetente;
         this.destinatario = destinatario;
         this.peso = peso;
+        this.enderecoDestinatario = enderecoDestinatario;
         this.eventos = new ArrayList<>();
     }
 
@@ -69,7 +72,7 @@ public class Encomenda {
         }
     }
     public double calcularFrete(double distanciaKm) {
-        return peso * 3.50 + distanciaKm * 0.80;
+        return getPeso() * 3.50 + distanciaKm * 0.80;
     }
 
     // GETTERS
@@ -78,14 +81,16 @@ public class Encomenda {
     public String getCodigo() { return codigo; }
     public String getDestinatario() { return destinatario; }
     public double getPeso() { return peso; }
+    public Endereco getEnderecoOrigem() { return enderecoOrigem; }
+    public Endereco getEnderecoDestino() { return enderecoDestinatario; }
     public List<EventoRastreio> getEventos() { return eventos; }
 
         @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Encomenda: ").append(codigo);
-        sb.append("\nDe: ").append(remetente);
-        sb.append("\nPara: ").append(destinatario);
+        sb.append("\nDe: ").append(remetente).append(" | ").append(enderecoOrigem);
+        sb.append("\nPara: ").append(destinatario).append(" | ").append(enderecoDestinatario);
         sb.append("\nPeso: ").append(peso).append(" kg");
         sb.append("\nStatus atual: ").append(eventos.isEmpty() ? "Aguardando coleta" : getStatusAtual());
         sb.append("\n");

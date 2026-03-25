@@ -1,10 +1,7 @@
 package com.logistica.service;
 
 import com.logistica.exception.EntregadorNaoEncontradoException;
-import com.logistica.model.Encomenda;
-import com.logistica.model.Entregador;
-import com.logistica.model.EventoRastreio;
-import com.logistica.model.StatusEncomenda;
+import com.logistica.model.*;
 
 import java.util.Scanner;
 
@@ -18,7 +15,7 @@ public class SistemaLogistica {
         this.sc = sc;
     }
 
-    public void exibirMenu() {
+    public void menuExibir() {
         System.out.println("=== SISTEMA DE LOGÍSTICA ===");
         System.out.println("1 - Cadastrar entregador");
         System.out.println("2 - Cadastrar encomenda");
@@ -26,15 +23,16 @@ public class SistemaLogistica {
         System.out.println("4 - Atribuir entregador a encomenda");
         System.out.println("5 - Calcular frete");
         System.out.println("6 - Buscar encomenda por código");
+        System.out.println("7 - Exibir encomendas de um entregador");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
     }
-    public void voltarMenu() {
+    public void menuVoltar() {
         System.out.println();
         System.out.println("Pressione Enter para voltar ao menu");
         sc.nextLine();
     }
-    public void cadastrarEntregador() {
+    public void menuCadastrarEntregador() {
         System.out.print("Digite o nome do entregador: ");
         String nome = sc.nextLine();
         System.out.print("Digite a região de atuação: ");
@@ -45,25 +43,32 @@ public class SistemaLogistica {
         System.out.println();
         System.out.println("Entregador cadastrado com sucesso!");
         System.out.println(entregador);
-        voltarMenu();
+        menuVoltar();
     }
-    public void cadastrarEncomenda() {
+    public void menuCadastrarEncomenda() {
         System.out.print("Digite o remetente: ");
         String remetente = sc.nextLine();
         System.out.print("Digite o destinatário: ");
         String destinatario = sc.nextLine();
+        System.out.println("Digite o endereço do destinatário: ");
+        String enderecoDestinatario = sc.nextLine();
+        System.out.println("Digite a cidade do destinatário: ");
+        String cidadeDestinatario = sc.nextLine();
+        System.out.println("Digite o CEP do destinatário: ");
+        String cepDestinatario = sc.nextLine();
         System.out.print("Digite o peso da encomenda (kg): ");
         double peso = sc.nextDouble();
         sc.nextLine();
 
-        Encomenda encomenda = new Encomenda(remetente, destinatario, peso);
+        Endereco endereco = new Endereco(enderecoDestinatario, cidadeDestinatario, cepDestinatario);
+        Encomenda encomenda = new Encomenda(remetente, destinatario, peso, endereco);
         transportadora.registrarEncomenda(encomenda);
         System.out.println();
         System.out.println("Encomenda cadastrada com sucesso!");
         System.out.println(encomenda);
-        voltarMenu();
+        menuVoltar();
     }
-    public void adicionarEventoRastreio() {
+    public void menuAdicionarEventoRastreio() {
         System.out.println("Código da encomenda (apenas os números inseridos em seguida do 'ENC-': ");
         String numero = sc.nextLine();
         String codigo = "ENC-" + numero;
@@ -92,7 +97,7 @@ public class SistemaLogistica {
             System.out.println("Erro: " + e.getMessage());
         }
 
-        voltarMenu();
+        menuVoltar();
 
     }
     public void menuAtribuirEntrega() {
@@ -110,6 +115,61 @@ public class SistemaLogistica {
             System.out.println("Erro: " + e.getMessage());
         }
 
-        voltarMenu();
+        menuVoltar();
+    }
+    public void menuCalcularFrete() {
+        System.out.print("Número da encomenda: ");
+        String numero = sc.nextLine();
+        String codigo = "ENC-" + numero;
+
+        try {
+            System.out.print("Distância em km: ");
+            double distancia = sc.nextDouble();
+            sc.nextLine();
+
+            Encomenda encomenda = transportadora.buscarEncomendaPorCodigo(codigo);
+            System.out.println("Frete: R$ " + encomenda.calcularFrete(distancia));
+        } catch (EntregadorNaoEncontradoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: É necessário digitar a distância em números para calcular o frete");
+        }
+
+        menuVoltar();
+    }
+    public void menuBuscarEncomenda() {
+        System.out.print("Número da encomenda: ");
+        String numero = sc.nextLine();
+        String codigo = "ENC-" + numero;
+
+        try {
+            Encomenda encomenda = transportadora.buscarEncomendaPorCodigo(codigo);
+            System.out.println(encomenda);
+        } catch (EntregadorNaoEncontradoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        menuVoltar();
+    }
+    public void menuExibirEncomendasEntregador() {
+        System.out.print("Nome do entregador: ");
+        String nomeEntregador = sc.nextLine();
+
+        try {
+            Entregador entregador = transportadora.buscarEntregadorPorNome(nomeEntregador);
+            System.out.println(entregador);
+            System.out.println("--- Encomendas ---");
+            if (entregador.getEncomendas().isEmpty()) {
+                System.out.println("Nenhuma encomenda atribuída a este entregador.");
+            } else {
+                for (Encomenda e : entregador.getEncomendas()) {
+                    System.out.println(e);
+                }
+            }
+        } catch (EntregadorNaoEncontradoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        menuVoltar();
     }
 }

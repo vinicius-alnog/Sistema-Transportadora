@@ -20,26 +20,20 @@ public class App {
         int opcao = -1;
 
         while (opcao != 0) {
-            sistema.exibirMenu();
+            sistema.menuExibir();
             opcao = sc.nextInt();
             sc.nextLine();
 
             switch (opcao) {
-                case 1: sistema.cadastrarEntregador(); break; // CADASTRO DE ENTREGADOR
-                case 2: sistema.cadastrarEncomenda(); break; // CADASTRO DE ENCOMENDA
-                case 3: sistema.adicionarEventoRastreio(); break; // ADICIONAR EVENTO DE RASTREIO
+                case 1: sistema.menuCadastrarEntregador(); break; // CADASTRO DE ENTREGADOR
+                case 2: sistema.menuCadastrarEncomenda(); break; // CADASTRO DE ENCOMENDA
+                case 3: sistema.menuAdicionarEventoRastreio(); break; // ADICIONAR EVENTO DE RASTREIO
                 case 4: sistema.menuAtribuirEntrega(); break; // ATRIBUIR ENTREGADOR A ENCOMENDA
-                case 5:
-                    System.out.println("Funcionalidade de calcular frete (a implementar)");
-                    break;
-                case 6:
-                    System.out.println("Funcionalidade de buscar encomenda por código (a implementar)");
-                    break;
-                case 0:
-                    System.out.println("Saindo do sistema...");
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                case 5: sistema.menuCalcularFrete(); break; // CALCULAR FRETE
+                case 6: sistema.menuBuscarEncomenda(); break; // BUSCAR ENCOMENDA POR CÓDIGO
+                case 7: sistema.menuExibirEncomendasEntregador(); break; // EXIBIR ENCOMENDAS DE UM ENTREGADOR
+                case 0: System.out.println("Saindo do sistema..."); break;
+                default: System.out.println("Opção inválida. Tente novamente.");
             }
         }
 
