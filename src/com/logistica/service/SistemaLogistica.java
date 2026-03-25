@@ -1,7 +1,10 @@
 package com.logistica.service;
 
+import com.logistica.exception.EntregadorNaoEncontradoException;
 import com.logistica.model.Encomenda;
 import com.logistica.model.Entregador;
+import com.logistica.model.EventoRastreio;
+import com.logistica.model.StatusEncomenda;
 
 import java.util.Scanner;
 
@@ -60,5 +63,53 @@ public class SistemaLogistica {
         System.out.println(encomenda);
         voltarMenu();
     }
+    public void adicionarEventoRastreio() {
+        System.out.println("Código da encomenda (apenas os números inseridos em seguida do 'ENC-': ");
+        String numero = sc.nextLine();
+        String codigo = "ENC-" + numero;
 
+        try {
+            Encomenda encomenda = transportadora.buscarEncomendaPorCodigo(codigo);
+            System.out.println("Status atual: " + encomenda.getStatusAtual());
+
+            StatusEncomenda proximo = encomenda.proximoStatus();
+            if (proximo == null) {
+                System.out.println("Encomenda já está no status final: " + encomenda.getStatusAtual());
+                return;
+            }
+
+            System.out.print("Localização: ");
+            String localizacao = sc.nextLine();
+            System.out.print("Observação: ");
+            String observacao = sc.nextLine();
+
+            EventoRastreio evento = new EventoRastreio(proximo, localizacao, observacao);
+            encomenda.adicionarEvento(evento);
+
+            System.out.println("Status atualizado para: " + proximo);
+            System.out.println(encomenda);
+        } catch (EntregadorNaoEncontradoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        voltarMenu();
+
+    }
+    public void menuAtribuirEntrega() {
+        System.out.println("Número da encomenda (apenas os números inseridos em seguida do 'ENC-': ");
+        String numeroEncomenda = sc.nextLine();
+        String codigoEncomenda = "ENC-" + numeroEncomenda;
+
+        System.out.println("Nome do entregador que deseja atribuir a encomenda: ");
+        String nomeEntregador = sc.nextLine();
+
+        try {
+            transportadora.atribuirEntregador(codigoEncomenda, nomeEntregador);
+            System.out.println("Entregador " + nomeEntregador + " atribuído à encomenda " + codigoEncomenda + " com sucesso!");
+        } catch (EntregadorNaoEncontradoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        voltarMenu();
+    }
 }

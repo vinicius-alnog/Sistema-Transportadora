@@ -27,7 +27,19 @@ public class Encomenda {
 
     // MÉTODOS
     public StatusEncomenda getStatusAtual() { // RETORNA O STATUS ATUAL DA ENCOMENDA
+        if (eventos.isEmpty()) {
+            return null;
+        }
         return eventos.get(eventos.size() - 1).getStatus();
+    }
+    public StatusEncomenda proximoStatus() {
+        if (eventos.isEmpty()) return StatusEncomenda.COLETADO;
+        switch (getStatusAtual()) {
+            case COLETADO: return StatusEncomenda.EM_TRANSITO;
+            case EM_TRANSITO: return StatusEncomenda.SAIU_PARA_ENTREGA;
+            case SAIU_PARA_ENTREGA: return StatusEncomenda.ENTREGUE;
+            default: return null;
+        }
     }
     public void adicionarEvento(EventoRastreio evento) { // ADICIONAR EVENTO AO RASTREIO
         if (eventos.isEmpty()) {
@@ -75,7 +87,7 @@ public class Encomenda {
         sb.append("\nDe: ").append(remetente);
         sb.append("\nPara: ").append(destinatario);
         sb.append("\nPeso: ").append(peso).append(" kg");
-        sb.append("\nStatus atual: ").append(getStatusAtual());
+        sb.append("\nStatus atual: ").append(eventos.isEmpty() ? "Aguardando coleta" : getStatusAtual());
         sb.append("\n");
         sb.append("\n--- Histórico ---");
         for (EventoRastreio e : eventos) {

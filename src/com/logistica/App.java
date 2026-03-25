@@ -26,14 +26,9 @@ public class App {
 
             switch (opcao) {
                 case 1: sistema.cadastrarEntregador(); break; // CADASTRO DE ENTREGADOR
-                case 2:
-
-                case 3:
-                    System.out.println("Funcionalidade de adicionar evento de rastreio (a implementar)");
-                    break;
-                case 4:
-                    System.out.println("Funcionalidade de atribuir entregador a encomenda (a implementar)");
-                    break;
+                case 2: sistema.cadastrarEncomenda(); break; // CADASTRO DE ENCOMENDA
+                case 3: sistema.adicionarEventoRastreio(); break; // ADICIONAR EVENTO DE RASTREIO
+                case 4: sistema.menuAtribuirEntrega(); break; // ATRIBUIR ENTREGADOR A ENCOMENDA
                 case 5:
                     System.out.println("Funcionalidade de calcular frete (a implementar)");
                     break;

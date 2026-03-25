@@ -11,7 +11,6 @@ public class EventoRastreio {
     private LocalDateTime dataHora;
 
     public EventoRastreio() {}
-
     public EventoRastreio(StatusEncomenda status, String localizacao, String observacao) {
         this.status = status;
         this.localizacao = localizacao;
