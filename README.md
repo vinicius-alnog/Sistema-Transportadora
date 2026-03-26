@@ -1,101 +1,102 @@
 # Sistema de Rastreamento de Entregas
-
-Um sistema de gerenciamento de encomendas feito em Java, onde é possível cadastrar entregadores, registrar encomendas, acompanhar o status de cada entrega em tempo real e calcular fretes. Tudo via terminal com um menu interativo.
-
----
-
-## Como funciona
-
-O sistema simula o fluxo de uma transportadora. Ao cadastrar uma encomenda, ela recebe um código automático (ENC-1, ENC-2...) e entra no sistema com o status inicial de **COLETADO**. A partir daí, o status avança conforme a entrega progride:
-
-
-COLETADO → EM_TRANSITO → SAIU_PARA_ENTREGA → ENTREGUE
-                                          ↘ TENTATIVA_FALHA
-
-
-Se o entregador tentar entregar e não conseguir duas vezes seguidas, o sistema detecta automaticamente e inicia o processo de devolução, mudando o status para **EM_DEVOLUCAO** sem precisar de intervenção manual.
-
-Qualquer tentativa de pular uma etapa do fluxo — como tentar marcar uma encomenda como entregue sem ela ter saído para entrega — é bloqueada com uma mensagem de erro clara.
-
----
+Sistema em Java para gerenciamento de encomendas com rastreamento de status, controle de entregadores e cálculo de frete.
 
 ## Funcionalidades
+* Cadastro de entregadores com nome e região de atuação
+* Cadastro de encomendas com remetente, destinatário, endereço de destino e peso
+* Código de encomenda gerado automaticamente (ENC-1, ENC-2...)
+* Histórico completo de rastreio com data e hora de cada evento
+* Transição de status automática e validada por ordem
+* Devolução automática após 2 tentativas de entrega falhas
+* Atribuição de entregador a encomenda com bloqueio de duplicidade
+* Cálculo de frete por peso e distância
+* Consulta de encomenda por código
+* Listagem de encomendas por entregador
 
-- Cadastro de entregadores com nome e região de atuação
-- Cadastro de encomendas com remetente, destinatário, endereço de destino e peso
-- Histórico completo de rastreio com data e hora de cada evento
-- Atribuição de entregador a encomenda, com bloqueio para evitar atribuição duplicada
-- Cálculo de frete baseado no peso e na distância informada
-- Consulta de encomenda por código
-- Listagem de todas as encomendas atribuídas a um entregador
+## Como Executar
 
----
+### Pré-requisitos
+* Java 17 ou superior instalado
+* Terminal/CMD ou IDE Java (Eclipse, IntelliJ, VS Code)
 
-## Cálculo de frete
+### Exemplo de Uso
+```
+=== SISTEMA DE LOGÍSTICA ===
+1 - Cadastrar entregador
+2 - Cadastrar encomenda
+3 - Adicionar evento de rastreio
+4 - Atribuir entregador a encomenda
+5 - Calcular frete
+6 - Buscar encomenda por código
+7 - Exibir encomendas por entregador
+0 - Sair
+Escolha uma opção: 2
 
-O frete é calculado com a seguinte fórmula:
+Digite o remetente: João
+Digite o destinatário: Maria
+Digite o endereço do destinatário: Rua dos Pinheiros, 456
+Digite a cidade do destinatário: Londrina
+Digite o CEP do destinatário: 86000-000
+Digite o peso da encomenda (kg): 3.5
 
+Encomenda cadastrada com sucesso!
+Encomenda: ENC-1
+De: João
+Para: Maria | Rua dos Pinheiros, 456 - Londrina (86000-000)
+Peso: 3.5 kg
+Status atual: COLETADO
+```
+
+## Fluxo de Status
+```
+COLETADO → EM_TRANSITO → SAIU_PARA_ENTREGA → ENTREGUE
+                                          ↘ TENTATIVA_FALHA (x2) → EM_DEVOLUCAO
+```
+Qualquer tentativa de pular uma etapa lança uma exceção com mensagem de erro clara.
+
+## Cálculo de Frete
 ```
 Frete = (peso × R$ 3,50) + (distância em km × R$ 0,80)
 ```
 
----
-
-## Estrutura do projeto
-
-O projeto foi organizado em camadas para separar responsabilidades:
-
+## Estrutura do Projeto
 ```
 src/
 └── com/
     └── logistica/
-        ├── model/            → entidades do sistema
+        ├── model/
         │   ├── Endereco.java
         │   ├── StatusEncomenda.java
         │   ├── EventoRastreio.java
         │   ├── Encomenda.java
         │   └── Entregador.java
-        ├── service/          → regras de negócio e menu
+        ├── service/
         │   ├── Transportadora.java
         │   └── SistemaLogistica.java
-        ├── exception/        → exceções personalizadas
+        ├── exception/
         │   ├── TransicaoStatusInvalidaException.java
         │   └── EntregadorNaoEncontradoException.java
         └── App.java
 ```
 
-- **model** — classes que representam os dados do sistema, sem lógica de negócio
-- **service** — onde ficam as regras de negócio e o controle do menu interativo
-- **exception** — exceções criadas para situações específicas do sistema, como transição de status inválida ou entregador não encontrado
+## Objetivos do Projeto
+Projeto desenvolvido como parte dos estudos de:
+* Lógica de Programação
+* Java Intermediário
+* Programação Orientada a Objetos
+* Estruturas de Dados
 
----
-
-## Tecnologias
-
-- Java 17
-- Orientação a Objetos
-- Enumerações com lógica de transição de status
-- Exceções customizadas
-- ArrayList e List para gerenciamento de coleções
-- LocalDateTime para registro de data e hora dos eventos
-
----
-
-## Como rodar
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/viniciusnogueira/projeto-logistica.git
-```
-
-2. Abra na sua IDE preferida (foi desenvolvido no IntelliJ IDEA)
-
-3. Rode a classe `App.java`
-
-4. Interaja pelo menu no terminal
-
----
+## Conceitos Aplicados
+* **Encapsulamento:** Atributos privados com getters e setters
+* **Herança e Polimorfismo:** Hierarquia de classes do sistema
+* **Enumerações:** Controle de status com lógica de transição
+* **Exceções customizadas:** Tratamento de erros específicos do negócio
+* **Coleções:** Gerenciamento de listas com ArrayList
+* **Membros estáticos:** Geração automática de códigos únicos
+* **LocalDateTime:** Registro de data e hora dos eventos de rastreio
+* **StringBuilder:** Formatação de saídas no toString das entidades
 
 ## Autor
-
-Vinicius Nogueira
+Desenvolvido por Vinicius Antonio Lisboa Nogueira
+* GitHub: **@vinicius-alnog**
+* LinkedIn: **Vinicius Nogueira**
