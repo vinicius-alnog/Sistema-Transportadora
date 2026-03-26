@@ -164,6 +164,7 @@ public class SistemaLogistica {
             } else {
                 for (Encomenda e : entregador.getEncomendas()) {
                     System.out.println(e);
+                    System.out.println("------------------");
                 }
             }
         } catch (EntregadorNaoEncontradoException e) {
