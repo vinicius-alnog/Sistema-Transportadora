@@ -8,10 +8,10 @@ Um sistema de gerenciamento de encomendas feito em Java, onde é possível cadas
 
 O sistema simula o fluxo de uma transportadora. Ao cadastrar uma encomenda, ela recebe um código automático (ENC-1, ENC-2...) e entra no sistema com o status inicial de **COLETADO**. A partir daí, o status avança conforme a entrega progride:
 
-```
+
 COLETADO → EM_TRANSITO → SAIU_PARA_ENTREGA → ENTREGUE
                                           ↘ TENTATIVA_FALHA
-```
+
 
 Se o entregador tentar entregar e não conseguir duas vezes seguidas, o sistema detecta automaticamente e inicia o processo de devolução, mudando o status para **EM_DEVOLUCAO** sem precisar de intervenção manual.
 
